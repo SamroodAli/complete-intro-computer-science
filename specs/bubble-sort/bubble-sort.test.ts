@@ -10,25 +10,33 @@
   index's. Continue looping through until all values are in ascending order
 */
 
+/**
+ * Worst case
+ * S -> O(N) since I chose to create a new copy of the array
+ * T -> O(N^2) since there is an outer while loop and an inner for loop which both could iterate as much as N
+ * Best Case
+ * sorted Loop
+ * S -> O(N)
+ * T -> O(N)  since it would be swapped in the first try and the outer while loop would only run once. N comes from the inner loop which will run once from one to N
+ */
+
 class Solution {
   bubbleSort = (nums: number[]) => {
-    let iterate = true;
-    const result = Array.from(nums);
-    while (iterate) {
-      iterate = false;
-      for (let i = 0; i < result.length; i++) {
-        const currentNumber = result[i];
-        const nextNumber =
-          i + 1 !== result.length ? result[i + 1] : currentNumber;
-        if (currentNumber > nextNumber) {
-          iterate = true;
-          result[i] = nextNumber;
-          result[i + 1] = currentNumber;
+    let swapped = false;
+    let iterations = 0;
+    do {
+      swapped = false;
+      for (let i = 0; i < nums.length - iterations; i++) {
+        if (nums[i] > nums[i + 1]) {
+          const temp = nums[i];
+          nums[i] = nums[i + 1];
+          nums[i + 1] = temp;
+          swapped = true;
         }
       }
-    }
-    console.log(result);
-    return result;
+      iterations += 1;
+    } while (swapped);
+    return nums;
   };
 }
 
