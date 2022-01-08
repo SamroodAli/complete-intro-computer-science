@@ -8,6 +8,9 @@
   loop goes over the sorted part of the list and inserts it into the correct position in the array.
   
 */
+
+[1, 2, 6, 4];
+
 function insertionSort(nums) {
   for (let i = 1; i < nums.length; i++) {
     let numberToInsert = nums[i]; // the numberToInsert number we're looking to insert
