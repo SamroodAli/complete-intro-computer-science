@@ -16,7 +16,7 @@ const merge = (lhs, rhs) => {
       result.push(rhs.shift());
     }
   }
-
+  // one of lhs or rhs will be empty, so we can safely concatenate.
   return result.concat(lhs, rhs);
 };
 
