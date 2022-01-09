@@ -10,19 +10,14 @@ const merge = (lhs, rhs) => {
   const result = [];
 
   while (lhs.length && rhs.length) {
-    if (lhs[0] > rhs[0]) {
-      result.push(rhs.shift());
-    } else {
+    if (lhs[0] <= rhs[0]) {
       result.push(lhs.shift());
+    } else {
+      result.push(rhs.shift());
     }
   }
 
-  if (lhs.length) {
-    return result.concat(lhs);
-  } else if (rhs.length) {
-    return result.concat(rhs);
-  }
-  return result;
+  return result.concat(lhs, rhs);
 };
 
 const mergeSort = (nums) => {
@@ -34,8 +29,9 @@ const mergeSort = (nums) => {
     return nums;
   }
 
-  const lhs = nums.slice(0, nums.length / 2);
-  const rhs = nums.slice(nums.length / 2, nums.length);
+  const middle = Math.floor(nums.length / 2);
+  const lhs = nums.slice(0, middle);
+  const rhs = nums.slice(middle);
 
   return merge(mergeSort(lhs), mergeSort(rhs));
 };
