@@ -23,16 +23,16 @@ const merge = (lhs, rhs) => {
 //
 //  RECURSIVE MERGE
 
-const merge = (lhs, rhs) => {
-  if (!lhs.length || !rhs.length) {
-    return [...lhs, ...rhs];
-  }
-  if (lhs[0] <= rhs[0]) {
-    return [lhs.shift(), ...merge(lhs, rhs)];
-  } else {
-    return [rhs.shift(), ...merge(lhs, rhs)];
-  }
-};
+// const merge = (lhs, rhs) => {
+//   if (!lhs.length || !rhs.length) {
+//     return [...lhs, ...rhs];
+//   }
+//   if (lhs[0] <= rhs[0]) {
+//     return [lhs.shift(), ...merge(lhs, rhs)];
+//   } else {
+//     return [rhs.shift(), ...merge(lhs, rhs)];
+//   }
+// };
 
 const mergeSort = (nums) => {
   // code goes here

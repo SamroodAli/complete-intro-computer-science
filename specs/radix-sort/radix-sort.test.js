@@ -9,13 +9,43 @@
 
 */
 
-function radixSort(array) {
-  // code goes here
+// [20][(20, 30)];
+
+function numAtIndex(num, index) {
+  let numString = String(num);
+  let idx = numString.length - 1 - index;
+  if (idx < 0) {
+    return 0;
+  }
+  return +numString[idx];
+}
+
+function radixSort(nums) {
+  let end = false;
+  let result = Array.from(nums);
+  let currentIndex = 0;
+  while (end === false) {
+    end = true;
+    let buckets = new Array(10).fill(0).map((e) => []);
+
+    result.forEach((num) => {
+      const index = numAtIndex(num, currentIndex);
+      if (index !== 0) {
+        end = false;
+      }
+      buckets[index].push(num);
+    });
+
+    currentIndex++;
+
+    result = buckets.flat();
+  }
+  return result;
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function () {
   it("should sort correctly", () => {
     const nums = [
       20,
@@ -71,6 +101,6 @@ describe.skip("radix sort", function () {
       .fill()
       .map(() => Math.floor(Math.random() * 500000));
     const ans = radixSort(nums);
-    expect(ans).toEqual(nums.sort());
+    expect(ans).toEqual(nums.sort((a, b) => a - b));
   });
 });
