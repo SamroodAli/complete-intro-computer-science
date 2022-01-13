@@ -15,27 +15,22 @@ function linearSearch(id, array) {
 
 function binarySearch(id, array) {
   // code goes here
-  let arr = Array.from(array);
-  let left = 0;
-  let right = array.length;
-  while (left !== right) {
-    const middleIndex = Math.floor((left + right) / 2);
-    const middle = arr[middleIndex];
-    // console.(arr.length,arr)
-    // console.log(Math.floor(arr.length/2),arr)
+  let min = 0;
+  let max = array.length - 1;
+  let element;
+  while (min <= max) {
+    const index = Math.floor((min + max) / 2);
+    element = array[index];
 
-    if (middle.id === id) {
-      return middle;
-    }
-
-    if (middle.id > id) {
-      right = middleIndex;
-    }
-
-    if (middle.id < id) {
-      left = middleIndex;
+    if (element.id < id) {
+      min = index + 1;
+    } else if (element.id > id) {
+      max = index - 1;
+    } else {
+      return element;
     }
   }
+  return element;
 }
 
 // unit tests

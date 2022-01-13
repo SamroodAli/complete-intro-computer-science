@@ -16,14 +16,78 @@
   As always, you can change describe to xdescribe to prevent the unit tests from running while
   you work
 */
+// using Map
+// class ArrayList {
+//   // code goes here
+//   constructor() {
+//     this.array = new Map();
+//     this.length = 0;
+//   }
 
+//   push(item) {
+//     this.array.set(this.length++, item);
+//   }
+//   pop() {
+//     if (this.length) {
+//       const value = this.array.get(this.length - 1);
+//       this.array.delete(this.length - 1);
+//       this.length--;
+//       return value;
+//     }
+//   }
+//   get(index) {
+//     return this.array.get(index);
+//   }
+//   delete(index) {
+//     const value = this.array.get(index);
+//     for (let i = index + 1; i < this.length; i++) {
+//       const currentValue = this.array.get(i);
+//       this.array.set(i - 1, currentValue);
+//     }
+//     this.pop();
+//     return value;
+//   }
+// }
+
+// using Literal Object
 class ArrayList {
-  // code goes here
+  constructor() {
+    this.array = {};
+    this.length = 0;
+  }
+
+  push(item) {
+    this.array[this.length++] = item;
+  }
+  pop() {
+    if (this.length) {
+      const value = this.array[this.length - 1];
+      delete this.array[this.length - 1];
+      this.length--;
+      return value;
+    }
+  }
+  get(index) {
+    return this.array[index];
+  }
+  delete(index) {
+    if (this.length) {
+      const value = this.array[index];
+      for (let i = index + 1; i < this.length; i++) {
+        // shift the current index value to the previous index
+        // [0,1,2,3,4,5] => delete (3)=> shift 4 to 3 and 5 to 4 => [0,1,2,4,5,5]
+        this.array[i - 1] = this.array[i];
+      }
+      // delete last one
+      this.pop();
+      return value;
+    }
+  }
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("ArrayList", function () {
+describe("ArrayList", function () {
   const range = (length) =>
     Array.apply(null, { length: length }).map(Number.call, Number);
   const abcRange = (length) =>
