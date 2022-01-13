@@ -29,32 +29,18 @@ class LinkedList {
   }
 
   push(item) {
+    const node = new Node(item);
     if (!this.length) {
-      this.head = this.tail = new Node(item);
+      this.head = this.tail = node;
     } else {
-      this.tail.next = new Node(item);
-      this.tail = this.tail.next;
+      this.tail.next = node;
+      this.tail = node;
     }
     this.length++;
   }
+
   pop() {
-    switch (this.length) {
-      case 0: {
-        return;
-      }
-      case 1: {
-        const responseNode = this.tail;
-        this.head = this.tail = undefined;
-        this.length = 0;
-        return responseNode.value;
-      }
-      default: {
-        const responseNode = this.tail;
-        this.tail = this.getNode(this.length - 2);
-        this.length--;
-        return responseNode.value;
-      }
-    }
+    return this.delete(this.length - 1);
   }
 
   getNode(index) {
@@ -68,6 +54,7 @@ class LinkedList {
 
     let current = this.head;
     for (let i = 1; i <= index; i++) {
+      //starting with 1 since we already got the head
       current = current.next;
     }
     return current;
@@ -78,16 +65,30 @@ class LinkedList {
   }
 
   delete(index) {
-    if (index === 0) {
-      this.head = this.head.next;
-      this.length--;
-    } else if (index === this.length - 1) {
-      this.pop();
-    } else {
-      const node = this.getNode(index);
-      node.delete();
-      this.length--;
+    if (index >= this.length) return;
+
+    let deleted;
+    switch (index) {
+      case this.length - 1: {
+        //deleting tail even when head = tail
+        deleted = this.tail.value;
+        // when head = tail
+        if (this.length === 1) {
+          this.head = this.tail = null;
+        } else {
+          // this.length -1 is last Node, -2 is last node's previous node
+          this.tail = this.getNode(this.length - 2);
+        }
+        break;
+      }
+      default: {
+        const node = this.getNode(index);
+        deleted = node.value;
+        node.delete(); // updates node even if it is head
+      }
     }
+    this.length--;
+    return deleted;
   }
 }
 
