@@ -21,7 +21,7 @@
  */
 
 class Solution {
-  bubbleSort = (nums: number[]) => {
+  bubbleSort = (nums) => {
     let swapped = false;
     let iterations = 0;
     do {

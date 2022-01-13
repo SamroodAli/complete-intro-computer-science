@@ -50,14 +50,14 @@ class LinkedList {
       }
       default: {
         const responseNode = this.tail;
-        this.tail = this.get(this.length - 2);
+        this.tail = this.getNode(this.length - 2);
         this.length--;
         return responseNode.value;
       }
     }
   }
 
-  get(index) {
+  getNode(index) {
     if (index >= this.length) {
       return;
     }
@@ -73,6 +73,10 @@ class LinkedList {
     return current;
   }
 
+  get(index) {
+    return this.getNode(index).value;
+  }
+
   delete(index) {
     if (index === 0) {
       this.head = this.head.next;
@@ -80,7 +84,7 @@ class LinkedList {
     } else if (index === this.length - 1) {
       this.pop();
     } else {
-      const node = this.get(index);
+      const node = this.getNode(index);
       node.delete();
       this.length--;
     }
