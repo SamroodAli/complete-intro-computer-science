@@ -67,28 +67,20 @@ class LinkedList {
   delete(index) {
     if (index >= this.length) return;
 
-    let deleted;
-    switch (index) {
-      case this.length - 1: {
-        //deleting tail even when head = tail
-        deleted = this.tail.value;
-        // when head = tail
-        if (this.length === 1) {
-          this.head = this.tail = null;
-        } else {
-          // this.length -1 is last Node, -2 is last node's previous node
-          this.tail = this.getNode(this.length - 2);
-        }
-        break;
-      }
-      default: {
-        const node = this.getNode(index);
-        deleted = node.value;
-        node.delete(); // updates node even if it is head
-      }
+    // let deleted
+    if (index === this.length - 1) {
+      // deleting tail by shifting this.tail one node backward
+      this.tail = this.getNode(index - 1);
+      var deleted = this.tail.next.value; //deleted is the previous'        s tail's value
+      delete this.tail.next;
+    } else {
+      const currentNode = this.getNode(index);
+      var deleted = currentNode.value;
+      currentNode.delete(); // updates node even if it is head
     }
+
     this.length--;
-    return deleted;
+    return deleted; //since var is not blocked scoped, it is available here
   }
 }
 
@@ -101,6 +93,8 @@ class Node {
     if (this.next) {
       this.value = this.next.value;
       this.next = this.next.next;
+    } else {
+      this.value = this.next = undefined;
     }
   }
 }

@@ -16,8 +16,45 @@ right - Node/object - the right node which itself may be another tree
 
 */
 
+const { times } = require("lodash");
+
+class Node {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
 class Tree {
   // code goes here
+  constructor() {
+    this.root = null;
+  }
+
+  add(value) {
+    const newNode = new Node(value);
+    if (!this.root) {
+      this.root = newNode;
+      return newNode.value;
+    }
+
+    let currentNode = this.root;
+    while (currentNode) {
+      const direction = value >= currentNode.value ? "right" : "left";
+
+      if (!currentNode[direction]) {
+        currentNode[direction] = newNode;
+        break;
+      }
+      currentNode = currentNode[direction];
+    }
+    // if !this.root
+    return newNode.value;
+  }
+  toObject() {
+    return this.root;
+  }
 }
 
 // you might consider using a Node class too
@@ -27,7 +64,7 @@ class Tree {
 
 // unit tests
 // do not modify the below code
-describe.skip("Binary Search Tree", function () {
+describe("Binary Search Tree", function () {
   it("creates a correct tree", () => {
     const nums = [3, 7, 4, 6, 5, 1, 10, 2, 9, 8];
     const tree = new Tree();
