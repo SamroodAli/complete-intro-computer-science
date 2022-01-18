@@ -47,6 +47,7 @@ class Tree {
         currentNode[direction] = newNode;
         break;
       }
+
       currentNode = currentNode[direction];
     }
     // if !this.root

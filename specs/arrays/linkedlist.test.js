@@ -1,27 +1,3 @@
-/*
-  LinkedList
-  
-  Name your class / constructor (something you can call new on) LinkedList
-  
-  LinkedList is made by making nodes that have two properties, the value that's being stored and a pointer to
-  the next node in the list. The LinkedList then keep track of the head and usually the tail (I would suggest
-  keeping track of the tail because it makes pop really easy.) As you may have notice, the unit tests are the
-  same as the ArrayList; the interface of the two are exactly the same and should make no difference to the
-  consumer of the data structure.
-  
-  length - integer  - How many elements in the list
-  push   - function - accepts a value and adds to the end of the list
-  pop    - function - removes the last value in the list and returns it
-  get    - function - accepts an index and returns the value at that position
-  delete - function - accepts an index, removes value from list, collapses, 
-                      and returns removed value
-                      
-  I would suggest making a second class, a Node class. However that's up to you how you implement it. A Node
-  has two properties, value and next.
-
-  As always, you can change describe to xdescribe to prevent the unit tests from running while
-  you work
-*/
 
 class LinkedList {
   constructor() {
@@ -41,6 +17,17 @@ class LinkedList {
 
   pop() {
     return this.delete(this.length - 1);
+  }
+  
+  print(){
+    let current = this.head
+    let array =  []
+    for(let i=0;i < this.length;i++){
+      array.push(current.value)
+      current = current.next;
+    }
+    console.log(array)
+    return array
   }
 
   getNode(index) {
@@ -82,7 +69,22 @@ class LinkedList {
     this.length--;
     return deleted; //since var is not blocked scoped, it is available here
   }
+
+  reverse() {
+    let current = this.head;
+    let prev;
+    let next;
+    this.head = this.tail;
+    this.tail = current;
+    for (let i = 0;i < this.length; i++) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+  }
 }
+
 
 class Node {
   constructor(value, next) {
